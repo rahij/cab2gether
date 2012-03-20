@@ -1,0 +1,67 @@
+<html>
+<head>
+	<title>Best Matches</title>
+</head>
+<body>
+<?php
+	include("db_info.php");
+	
+	echo "Started! <br />"; 
+	
+	$timeval = $_POST["date"] . " " . $_POST["time"];
+	$dest=$_POST["dest"];
+	$orig=$_POST["stpt"];
+	
+	$lefttosearch = 5;
+	$lefttoreturn = 5;
+	
+	echo "Passed0!";
+	
+	$con = mysql_connect("$connect_host","$connect_user","$connect_password");
+	
+	echo "Passed0.5!";
+	
+	if(!$con)
+	{
+		echo "Unable to connect to mysql";
+		die();
+	}
+	echo "Passed1!";
+	
+	$open_db = mysql_select_db("$database_name");
+	if (!$open_db)
+	{
+		echo "Unable to open database";
+		die();
+	}
+	
+	
+	echo "Passed2!";
+	
+	$bothmatch_values = mysql_query("SELECT * FROM $table_name WHERE destination = '$dest' AND origin = '$orig' AND td >= '$timeval' ORDER BY dt LIMIT $lefttosearch");
+	$lefttosearch -= mysql_num_rows($bothmatch_values);
+	if($lefttosearch>0){
+		$destmatches_values = mysql_query("SELECT * FROM $table_name WHERE destination = '$dest' AND td >= '$timeval' ORDER BY dt LIMIT $lefttosearch");
+		$lefttosearch -= mysql_num_rows($destmatches_values);
+	}
+	if($lefttosearch>0){
+		$origmatches_values = mysql_query("SELECT * FROM $table_name WHERE origin = '$orig' AND td >= '$timeval' ORDER BY dt LIMIT $lefttosearch");
+	}
+	
+	
+	echo "Passed3!";
+	
+	while ($current_item = mysql_fetch_object($bothmatch_values)){
+		$currentname = $current_item->name;
+		$currenthpno = $current_item->hpno;
+		$currentdest = $current_item->destination;
+		$currentorig = $current_item->origin;
+		$currenttime = $current_item->td;
+		echo $currentname . " is going from " . $currentorig . " to " . $currentdest . " at " . $currenttime . "<br />";
+	} 
+	
+	
+	echo "Passed4!";
+?>
+</body>
+</html>

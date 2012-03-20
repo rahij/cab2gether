@@ -1,0 +1,55 @@
+<html>
+<head>
+<script type="text/javascript">
+
+function addDetailsToForm() {
+	var x= localStorage.getItem("name");
+	var y= localStorage.getItem("hpno");
+	//var frm = document.forms["journey_form"];
+	//frm.innerHTML = frm.innerHTML + '<input type="hidden" name="username" value="' + x + '" ></input>"';
+	//frm.innerHTML = frm.innerHTML + '<input type="hidden" name="hpno" value="' + y + '" ></input>"';
+	document.forms["journey_form"]["username"].value = x;
+	document.forms["journey_form"]["hpno"].value = y;
+	
+	return true;
+}
+
+</script>
+</head>
+
+<body>
+
+
+<link rel="stylesheet" type="text/css" href="./new_journey.css" />
+
+<table width="320" border="0">
+
+<tr>
+<td colspan="2" style="background-color:#FFA500;text-align:center;">
+
+<div id="heading">
+Enter your journey details<br /><br />
+</div>
+
+<form id="journey_form" action="http://46.137.218.102/cab2gether/find_best.php" method="post" onsubmit="addDetailsToForm()">
+Starting Point<br /> <input type="text" name="stpt" style="width:254px; height:32px;"/><br /><br />
+Destination <br /><input type="text" name="dest" style="width:254px; height:32px;"/><br /><br />
+Date<br /> <input type="text" name="date" style="width:254px; height:32px;"/><br /><br />
+Time Leaving <br /><input type="text" name="time" style="width:254px; height:32px;"/><br /><br />
+<input type="hidden" name="username" />
+<input type="hidden" name="hpno" />
+
+<input type="submit" name="submitbutton" value="Find Matches"/>
+
+</form>
+
+
+
+<br /><br /><br />
+</td>
+</tr>
+
+
+
+</body>
+</html>
