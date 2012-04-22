@@ -1,0 +1,21 @@
+<html>
+<body>
+
+
+<script type="text/javascript" src="./js/jquery-1.7.1.min.js"></script>
+
+<script type="text/javascript">
+
+$.get(
+    "http://46.137.218.102/test.json",
+    {paramOne : 1, paramX : 'abc'},
+    function(data) {
+       alert('page content: ' + data);
+    }
+);
+
+</script>
+
+
+</body>
+</html> 
